@@ -32,7 +32,7 @@ namespace Library.Repositories {
             loan.BookCopy = item.BookCopy;
             loan.DueDate = item.DueDate;
             loan.LoanDate = item.LoanDate;
-            loan.MemberId = item.MemberId;
+            loan.Member = item.Member;
             loan.ReturnDate = item.ReturnDate;
 
             _context.SaveChanges();

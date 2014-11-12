@@ -10,8 +10,23 @@ using System.Windows.Forms;
 
 namespace Library {
     public partial class MemberForm : Form {
+
+        public Models.Member Member { get; private set; }
+
         public MemberForm() {
             InitializeComponent();
+            if (Member == null) {
+                Member = new Models.Member();
+            }
+        }
+
+        public MemberForm(Models.Member member) : this() {
+            Member = member;
+        }
+
+        private void btnOK_Click(object sender, EventArgs e) {
+            Member.Name = txtName.Text;
+            Member.PersonalId = txtPersId.Text;
         }
     }
 }

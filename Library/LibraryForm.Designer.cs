@@ -32,6 +32,9 @@
             this.lblMembers = new System.Windows.Forms.Label();
             this.btnAddBook = new System.Windows.Forms.Button();
             this.btnAddMember = new System.Windows.Forms.Button();
+            this.btnAddLoan = new System.Windows.Forms.Button();
+            this.lblLoans = new System.Windows.Forms.Label();
+            this.lbLoans = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lbBooks
@@ -116,11 +119,41 @@
             this.btnAddMember.UseVisualStyleBackColor = true;
             this.btnAddMember.Click += new System.EventHandler(this.btnAddMember_Click);
             // 
+            // btnAddLoan
+            // 
+            this.btnAddLoan.Location = new System.Drawing.Point(991, 420);
+            this.btnAddLoan.Name = "btnAddLoan";
+            this.btnAddLoan.Size = new System.Drawing.Size(39, 23);
+            this.btnAddLoan.TabIndex = 11;
+            this.btnAddLoan.Text = "add";
+            this.btnAddLoan.UseVisualStyleBackColor = true;
+            this.btnAddLoan.Click += new System.EventHandler(this.btnAddLoan_Click);
+            // 
+            // lblLoans
+            // 
+            this.lblLoans.AutoSize = true;
+            this.lblLoans.Location = new System.Drawing.Point(777, 9);
+            this.lblLoans.Name = "lblLoans";
+            this.lblLoans.Size = new System.Drawing.Size(36, 13);
+            this.lblLoans.TabIndex = 10;
+            this.lblLoans.Text = "Loans";
+            // 
+            // lbLoans
+            // 
+            this.lbLoans.FormattingEnabled = true;
+            this.lbLoans.Location = new System.Drawing.Point(780, 25);
+            this.lbLoans.Name = "lbLoans";
+            this.lbLoans.Size = new System.Drawing.Size(250, 394);
+            this.lbLoans.TabIndex = 9;
+            // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1222, 638);
+            this.Controls.Add(this.btnAddLoan);
+            this.Controls.Add(this.lblLoans);
+            this.Controls.Add(this.lbLoans);
             this.Controls.Add(this.btnAddMember);
             this.Controls.Add(this.btnAddBook);
             this.Controls.Add(this.lblMembers);
@@ -149,6 +182,9 @@
         private System.Windows.Forms.Label lblMembers;
         private System.Windows.Forms.Button btnAddBook;
         private System.Windows.Forms.Button btnAddMember;
+        private System.Windows.Forms.Button btnAddLoan;
+        private System.Windows.Forms.Label lblLoans;
+        private System.Windows.Forms.ListBox lbLoans;
     }
 }
 

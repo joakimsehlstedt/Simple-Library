@@ -114,10 +114,24 @@ namespace Library {
         }
 
         private void btnAddBook_Click(object sender, EventArgs e) {
+            BookForm bookForm = new BookForm(_authorService.All());
+            bookForm.ShowDialog();
 
+            if (bookForm.DialogResult == DialogResult.OK) {
+                _bookService.AddBook(bookForm.Book);
+            }
         }
 
         private void btnAddMember_Click(object sender, EventArgs e) {
+            MemberForm memberForm = new MemberForm();
+            memberForm.ShowDialog();
+
+            if (memberForm.DialogResult == DialogResult.OK) {
+                _memberService.AddMember(memberForm.Member);
+            }
+        }
+
+        private void btnAddLoan_Click(object sender, EventArgs e) {
 
         }
 

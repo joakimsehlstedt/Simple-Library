@@ -32,7 +32,7 @@
             this.txtIsbn = new System.Windows.Forms.TextBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.txtAuthor = new System.Windows.Forms.ComboBox();
+            this.cmbAuthors = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnNewAuthor = new System.Windows.Forms.Button();
@@ -114,17 +114,18 @@
             this.txtDescription.Size = new System.Drawing.Size(180, 62);
             this.txtDescription.TabIndex = 8;
             // 
-            // txtAuthor
+            // cmbAuthors
             // 
-            this.txtAuthor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.txtAuthor.FormattingEnabled = true;
-            this.txtAuthor.Location = new System.Drawing.Point(81, 148);
-            this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(180, 21);
-            this.txtAuthor.TabIndex = 9;
+            this.cmbAuthors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAuthors.FormattingEnabled = true;
+            this.cmbAuthors.Location = new System.Drawing.Point(81, 148);
+            this.cmbAuthors.Name = "cmbAuthors";
+            this.cmbAuthors.Size = new System.Drawing.Size(180, 21);
+            this.cmbAuthors.TabIndex = 9;
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(12, 226);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -134,12 +135,14 @@
             // 
             // btnOK
             // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(93, 226);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 11;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnNewAuthor
             // 
@@ -158,7 +161,7 @@
             this.Controls.Add(this.btnNewAuthor);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.txtAuthor);
+            this.Controls.Add(this.cmbAuthors);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.txtIsbn);
@@ -186,7 +189,7 @@
         private System.Windows.Forms.TextBox txtIsbn;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.ComboBox txtAuthor;
+        private System.Windows.Forms.ComboBox cmbAuthors;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnNewAuthor;
