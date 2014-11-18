@@ -1,4 +1,8 @@
-﻿using Library.Models;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using Library.Models;
 using Library.Repositories;
 using System;
 using System.Collections.Generic;
@@ -7,6 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Services {
+
+    /// <summary>
+    /// LoanService class for use in the servicelayer of the entity framework.
+    /// Handles loan data and operations between the repository and the GUI.
+    /// </summary>
     public class LoanService : IService {
 
         private LoanRepository _loanRepository;
@@ -36,19 +45,6 @@ namespace Library.Services {
             return _loanRepository.All()
                 .Where(l => l.Member == member);
         }
-
-        //public void AddLoan(BookCopy bookCopy, Member member) {
-        //    Loan loan = new Loan();
-
-        //    loan.BookCopy = bookCopy;
-        //    loan.Member = member;
-        //    loan.LoanDate = DateTime.Today;
-        //    loan.DueDate = DateTime.Today.AddDays(15);
-
-        //    _loanRepository.Add(loan);
-        //    myEventArgs = new EventArgs();
-        //    OnUpdated(myEventArgs);
-        //}
 
         public void AddLoan(int bookCopyId, int memberId, 
             BookCopyService bookCopyService, MemberService memberService) {

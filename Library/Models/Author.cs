@@ -1,10 +1,18 @@
-﻿using System;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace Library.Models {
+
+    /// <summary>
+    /// Author model for use in the entity framework repository.
+    /// </summary>
     public class Author {
         [Key]
         public int Id { get; set; }

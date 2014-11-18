@@ -1,4 +1,8 @@
-﻿using Library.Models;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using Library.Models;
 using Library.Repositories;
 using Library.Services;
 using System;
@@ -12,6 +16,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Library {
+
+    /// <summary>
+    /// Main form for the application. Contains all GUI for the entity framework
+    /// based Library application.
+    /// </summary>
     public partial class LibraryForm : Form {
 
         private BookService _bookService;

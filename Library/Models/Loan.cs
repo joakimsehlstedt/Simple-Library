@@ -1,10 +1,19 @@
-﻿using System;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace Library.Models {
+
+    /// <summary>
+    /// Loan model for use in the entity framework repository.
+    /// Stores information about the loan, the dates and the person.
+    /// </summary>
     public class Loan {     
         [Key]
         public int Id { get; set; }

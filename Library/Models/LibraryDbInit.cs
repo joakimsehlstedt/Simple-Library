@@ -63,25 +63,6 @@ namespace Library.Models {
             context.Members.Add(lars);
             context.Members.Add(sven);
 
-
-            // Create some loans
-            Loan loan1 = new Loan() {
-                LoanDate = DateTime.Today,
-                DueDate = DateTime.Today.AddDays(15),
-                Member = lars
-            };
-            loan1.BookCopy = lotr_1;
-
-            //Loan loan2 = new Loan() {
-            //    LoanDate = DateTime.Today.AddDays(-30),
-            //    DueDate = DateTime.Today.AddDays(-15),
-            //    BookCopy = monteCristo_1,
-            //    Member = sven
-            //};
-            //context.Loans.Add(loan1);
-            //context.Loans.Add(loan2);
-
-
             // Persist changes to the database
             context.SaveChanges();
         }

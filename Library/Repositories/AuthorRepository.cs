@@ -1,10 +1,20 @@
-﻿using System;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Library.Models;
 
 namespace Library.Repositories {
+
+    /// <summary>
+    /// Definition of the AuthorRepository in the repository layer 
+    /// for the entity framework. Also includes implementation of 
+    /// the CRUD methods from the IRepository interface.
+    /// </summary>
     public class AuthorRepository : IRepository<Author, int> {
         LibraryContext _context;
 

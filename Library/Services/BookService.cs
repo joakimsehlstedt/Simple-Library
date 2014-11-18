@@ -1,4 +1,8 @@
-﻿using Library.Models;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using Library.Models;
 using Library.Repositories;
 using System;
 using System.Collections.Generic;
@@ -7,6 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Services {
+
+    /// <summary>
+    /// BookService class for use in the servicelayer of the entity framework.
+    /// Handles book data and operations between the repository and the GUI.
+    /// </summary>
     public class BookService : IService {
 
         private BookRepository _bookRepository;

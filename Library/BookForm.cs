@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +13,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Library {
+
+    /// <summary>
+    /// Form for user data-input of a new book.
+    /// </summary>
     public partial class BookForm : Form {
 
         public Models.Book Book { get; private set; }

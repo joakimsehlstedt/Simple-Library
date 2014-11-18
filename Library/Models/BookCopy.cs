@@ -1,10 +1,19 @@
-﻿using System;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace Library.Models {
+
+    /// <summary>
+    /// Book copy model for use in the entity framework repository.
+    /// Used to store information about actual copies of book-titles.
+    /// </summary>
     public class BookCopy {
         [Key]
         public int Id { get; set; }

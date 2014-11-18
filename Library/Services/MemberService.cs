@@ -1,4 +1,8 @@
-﻿using Library.Models;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using Library.Models;
 using Library.Repositories;
 using System;
 using System.Collections.Generic;
@@ -7,6 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Services {
+
+    /// <summary>
+    /// MemberService class for use in the servicelayer of the entity framework.
+    /// Handles member data and operations between the repository and the GUI.
+    /// </summary>
     public class MemberService : IService {
 
         private MemberRepository _memberRepository;

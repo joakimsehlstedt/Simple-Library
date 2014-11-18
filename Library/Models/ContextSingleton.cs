@@ -1,4 +1,8 @@
-﻿using Library.Models;
+﻿// Library
+// Joakim Sehlstedt
+// 18 Nov 2014
+
+using Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
