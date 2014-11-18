@@ -33,5 +33,9 @@ namespace Library.Services {
             OnUpdated(myEventArgs);
         }
 
+        public Member GetMember(int id) {
+            return _memberRepository.Find(id);
+        }
+
     }
 }

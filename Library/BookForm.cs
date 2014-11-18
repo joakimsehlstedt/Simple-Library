@@ -12,22 +12,25 @@ namespace Library {
     public partial class BookForm : Form {
 
         public Models.Book Book { get; private set; }
+        private Services.AuthorService authorService;
 
-        public BookForm(IEnumerable<Models.Author> authors) {
+        public BookForm(Services.AuthorService authorService) {
+
             InitializeComponent();
-
+            this.authorService = authorService;
+                
             if (Book == null) {
                 Book = new Models.Book();
             }
 
-            cmbAuthors.Items.Clear();
-            foreach (Models.Author author in authors) {
-                cmbAuthors.Items.Add(author);
-            }
+            UpdateGUI();
         }
 
-        public BookForm(IEnumerable<Models.Author> authors, Models.Book book) : this(authors) {
-            Book = book;
+        private void UpdateGUI() {
+            cmbAuthors.Items.Clear();
+            foreach (Models.Author author in authorService.All()) {
+                cmbAuthors.Items.Add(author);
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e) {
@@ -35,6 +38,18 @@ namespace Library {
             Book.Title = txtTitle.Text;
             Book.Description = txtDescription.Text;
             Book.Author = (Models.Author)cmbAuthors.SelectedItem;
+        }
+
+        private void btnNewAuthor_Click(object sender, EventArgs e) {
+            AuthorForm form = new AuthorForm();
+
+            if (form.ShowDialog(this) == DialogResult.OK) {
+                Models.Author newAuthor = new Models.Author() {
+                    Name = form.NameAuthor
+                };
+                authorService.AddAuthor(newAuthor);
+                UpdateGUI();
+            }
         }
 
 

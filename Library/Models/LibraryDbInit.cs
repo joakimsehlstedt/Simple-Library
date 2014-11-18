@@ -21,7 +21,6 @@ namespace Library.Models {
             Author tolkien = new Author() {
                 Name = "J. R. R. Tolkien"
             };
-            // Add the author to the DbSet of authors.
             context.Authors.Add(alex);
             context.Authors.Add(tolkien);
 
@@ -35,21 +34,19 @@ namespace Library.Models {
                 Title = "The Lord of the Rings",
                 Author = tolkien
             };
-            // Add the book to the DbSet of books.
             context.Books.Add(monteCristo);
             context.Books.Add(lotr);
 
-            // Persist changes to the database
-            //context.SaveChanges();
          
             // Create some bookcopy objects
             BookCopy monteCristo_1 = new BookCopy() {
-                Book = monteCristo
+                Book = monteCristo,
+                Available = true
             };
             BookCopy lotr_1 = new BookCopy() {
-                Book = lotr
+                Book = lotr,
+                Available = false
             };
-            // Add the book to the DbSet of books.
             context.BookCopies.Add(monteCristo_1);
             context.BookCopies.Add(lotr_1);
 
@@ -63,9 +60,26 @@ namespace Library.Models {
                 PersonalId = "771124-1122",
                 Name = "Sven Svensson"
             };
-            // Add the author to the DbSet of authors.
             context.Members.Add(lars);
             context.Members.Add(sven);
+
+
+            // Create some loans
+            Loan loan1 = new Loan() {
+                LoanDate = DateTime.Today,
+                DueDate = DateTime.Today.AddDays(15),
+                Member = lars
+            };
+            loan1.BookCopy = lotr_1;
+
+            //Loan loan2 = new Loan() {
+            //    LoanDate = DateTime.Today.AddDays(-30),
+            //    DueDate = DateTime.Today.AddDays(-15),
+            //    BookCopy = monteCristo_1,
+            //    Member = sven
+            //};
+            //context.Loans.Add(loan1);
+            //context.Loans.Add(loan2);
 
 
             // Persist changes to the database

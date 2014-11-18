@@ -41,12 +41,8 @@ namespace Library {
         }
 
         private void myBookService_Changed(object sender, EventArgs e) {
-            if (!chbAvailableOnly.Checked) {
-                ListAllBooks();
-            } 
-            else {
-                ListAllBookCopies();
-            }
+            ListAllBooks();
+            ListAllBookCopies();
         }
 
         private void myMemberService_Changed(object sender, EventArgs e) {
@@ -54,7 +50,8 @@ namespace Library {
         }
 
         private void myLoanService_Changed(object sender, EventArgs e) {
-            UpdateGUI();
+            ListAllLoans();
+            ListAllBookCopies();
         }
 
         private void myAuthorService_Changed(object sender, EventArgs e) {
@@ -62,18 +59,15 @@ namespace Library {
         }
 
         private void myBookCopyService_Changed(object sender, EventArgs e) {
-            if (chbAvailableOnly.Checked) {
-                ListAllBookCopies();
-            }
-            else {
-                ListAllBooks();
-            }
+            ListAllBookCopies();
         }
 
         private void UpdateGUI() {
             ListAllAuthors();
             ListAllBooks();
+            ListAllBookCopies();
             ListAllMembers();
+            ListAllLoans();
         }
 
         private void ListAllAuthors() {
@@ -85,15 +79,16 @@ namespace Library {
 
         private void ListAllBooks() {
             lbBooks.Items.Clear();
+            lblBooks.Text = "Books";
             foreach (Book book in _bookService.All()) {
                 lbBooks.Items.Add(book);
             }
         }
 
         private void ListAllBookCopies() {
-            lbBooks.Items.Clear();
-            foreach (BookCopy bookCopy in _bookCopyService.All()) {
-                lbBooks.Items.Add(bookCopy);
+            lbCopies.Items.Clear();
+            foreach (BookCopy bookCopy in _bookCopyService.AllAvailableCopies()) {
+                lbCopies.Items.Add(bookCopy);
             }
         }
 
@@ -104,21 +99,24 @@ namespace Library {
             }
         }
 
-        private void chbAvailableOnly_CheckedChanged(object sender, EventArgs e) {
-            if (chbAvailableOnly.Checked) {
-                ListAllBookCopies();
-            }
-            else {
-                ListAllBooks();
+        private void ListAllLoans() {
+            lbLoans.Items.Clear();
+            lblLoans.Text = "Loans";
+            foreach (Loan loan in _loanService.All()) {
+                lbLoans.Items.Add(loan);
             }
         }
 
         private void btnAddBook_Click(object sender, EventArgs e) {
-            BookForm bookForm = new BookForm(_authorService.All());
+            BookForm bookForm = new BookForm(_authorService);
             bookForm.ShowDialog();
 
             if (bookForm.DialogResult == DialogResult.OK) {
                 _bookService.AddBook(bookForm.Book);
+                _bookCopyService.AddBookCopy(new BookCopy() {
+                    Book = bookForm.Book,
+                    Available = true
+                });
             }
         }
 
@@ -131,10 +129,120 @@ namespace Library {
             }
         }
 
-        private void btnAddLoan_Click(object sender, EventArgs e) {
+        private void btnAddLoan_Click(object sender, EventArgs e) {      
+            int bookCopyId;
+            if (lbCopies.SelectedItem is BookCopy) {
+                bookCopyId = ((BookCopy)lbCopies.SelectedItem).Id;
+            }
+            else {
+                MessageBox.Show("You must select a book-copy from the copies list!");
+                return;
+            }
 
+            int memberId;
+            if (lbMembers.SelectedItem is Member) {
+                memberId = ((Member)lbMembers.SelectedItem).Id;
+            }
+            else {
+                MessageBox.Show("You must select a member from the members list!");
+                return;
+            }
+
+            _loanService.AddLoan(bookCopyId, memberId, 
+                _bookCopyService, _memberService);
         }
 
+        private void btnReturnLoan_Click(object sender, EventArgs e) {
+            if (lbLoans.SelectedItem is Loan) {
+                int daysOver = _loanService.ReturnLoan(((Loan)lbLoans.SelectedItem).Id);
+                if (daysOver > 0) {
+                    MessageBox.Show("Your fine is: " + daysOver * 10 + "kr");
+                }
+            }
+            else {
+                MessageBox.Show("You must select a loan in the loan list!");
+            }
+        }
+        
+        private void btnAddCopy_Click(object sender, EventArgs e) {
+            if (lbBooks.SelectedItem is Book) {
+                _bookCopyService.AddBookCopy(new BookCopy() {
+                    Book = (Book)lbBooks.SelectedItem,
+                    Available = true
+                });
+            }
+            else {
+                MessageBox.Show("You must select a book from the books list!");
+            }
+        }
 
+        private void lbAuthors_SelectedIndexChanged(object sender, EventArgs e) {
+            if (lbAuthors.SelectedItem != null) {
+                lbBooks.Items.Clear();
+                lblBooks.Text = "Books by Author";
+                foreach (Book book in _bookService.BooksByAuthor((Author)lbAuthors.SelectedItem)) {
+                    lbBooks.Items.Add(book);
+                }
+            }
+            else {
+                ListAllBooks();
+            }
+        }
+        
+        private void lbMembers_SelectedIndexChanged(object sender, EventArgs e) {
+            if (lbMembers.SelectedItem != null && lbCopies.SelectedItem == null) {
+                lbLoans.Items.Clear();
+                lblLoans.Text = "Loans by Member";
+                foreach (Loan loan in _loanService.LoansByMember((Member)lbMembers.SelectedItem)) {
+                    lbLoans.Items.Add(loan);
+                }
+            }
+            else {
+                ListAllLoans();
+            }
+
+            if (lbMembers.SelectedItem != null) {
+                Member member = (Member)lbMembers.SelectedItem;
+                txtDetails.Text = "Name: " + member.Name +
+                    "\r\nPersonal Id: " + member.PersonalId;
+            }
+            else {
+                txtDetails.Text = string.Empty;
+            }
+        }
+
+        private void btnClearSelectionAuthor_Click(object sender, EventArgs e) {
+            lbAuthors.ClearSelected();
+        }
+
+        private void btnClearSelectionMembers_Click(object sender, EventArgs e) {
+            lbMembers.ClearSelected();
+        }
+
+        private void btnClearSelectionCopies_Click(object sender, EventArgs e) {
+            lbCopies.ClearSelected();
+        }
+
+        private void lbBooks_SelectedIndexChanged(object sender, EventArgs e) {
+            if (lbBooks.SelectedItem != null) {
+                txtDetails.Text = ((Book)lbBooks.SelectedItem).Description;
+            }
+            else {
+                txtDetails.Text = string.Empty;
+            }
+        }
+
+        private void lbLoans_SelectedIndexChanged(object sender, EventArgs e) {
+            if (lbLoans.SelectedItem != null) {
+                Loan loan = (Loan)lbLoans.SelectedItem;
+                string returnDate = (loan.ReturnDate != null) ? ((DateTime)loan.ReturnDate).ToShortDateString() : "Not returned";
+                txtDetails.Text = "Loan date: " + loan.LoanDate.ToShortDateString() +
+                    "\r\nDue date: " + loan.DueDate.ToShortDateString() +
+                    "\r\nReturned: " + returnDate;
+            }
+            else {
+                txtDetails.Text = string.Empty;
+            }
+        }
     }
 }

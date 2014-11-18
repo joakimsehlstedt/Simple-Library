@@ -27,10 +27,60 @@ namespace Library.Services {
             return _loanRepository.All();
         }
 
-        public void AddLoan(Loan loan) {
-            myEventArgs = new EventArgs();
+        public IEnumerable<Loan> NotReturnedLoans() {
+            return _loanRepository.All()
+                .Where(l => l.ReturnDate == null);
+        }
+
+        public IEnumerable<Loan> LoansByMember(Member member) {
+            return _loanRepository.All()
+                .Where(l => l.Member == member);
+        }
+
+        //public void AddLoan(BookCopy bookCopy, Member member) {
+        //    Loan loan = new Loan();
+
+        //    loan.BookCopy = bookCopy;
+        //    loan.Member = member;
+        //    loan.LoanDate = DateTime.Today;
+        //    loan.DueDate = DateTime.Today.AddDays(15);
+
+        //    _loanRepository.Add(loan);
+        //    myEventArgs = new EventArgs();
+        //    OnUpdated(myEventArgs);
+        //}
+
+        public void AddLoan(int bookCopyId, int memberId, 
+            BookCopyService bookCopyService, MemberService memberService) {
+
+            Loan loan = new Loan();
+
+            loan.BookCopy = bookCopyService.GetBookCopy(bookCopyId);
+            loan.BookCopy.Available = false;
+            loan.Member = memberService.GetMember(memberId);
+            loan.LoanDate = DateTime.Today;
+            loan.DueDate = DateTime.Today.AddDays(15);
+
             _loanRepository.Add(loan);
+            myEventArgs = new EventArgs();
             OnUpdated(myEventArgs);
+        }
+
+        public int ReturnLoan(int loanId) {
+            Loan loan = _loanRepository.Find(loanId);
+            loan.ReturnDate = DateTime.Today;
+            loan.BookCopy.Available = true;
+
+            _loanRepository.Edit(loan);
+            myEventArgs = new EventArgs();
+            OnUpdated(myEventArgs);
+
+            if (loan.ReturnDate > loan.DueDate) {          
+                return loan.ReturnDate.Value.Subtract(loan.DueDate).Days;
+            }
+            else {
+                return 0;
+            }
         }
     }
 }

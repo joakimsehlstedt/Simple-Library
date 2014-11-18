@@ -10,9 +10,11 @@ namespace Library.Models {
         public int Id { get; set; }
         [Required]
         public Book Book { get; set; }
+        [Required]
+        public bool Available { get; set; }
 
         public override string ToString() {
-            return String.Format("[{0}] -- {1}", this.Id, this.Book.ToString());
+            return String.Format("[{0}] -- {1}", this.Id, this.Book.Title);
         }
     }
 }

@@ -32,5 +32,14 @@ namespace Library.Services {
             _bookRepository.Add(book);
             OnUpdated(myEventArgs);
         }
+
+        public Book GetBook(int id) {
+            return _bookRepository.Find(id);
+        }
+
+        public IEnumerable<Book> BooksByAuthor(Author author) {
+            return _bookRepository.All()
+                .Where(b => b.Author == author);
+        }
     }
 }

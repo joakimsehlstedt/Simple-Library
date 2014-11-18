@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorForm.Designer.cs">
+      <DependentUpon>AuthorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BookForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,12 +71,6 @@
     </Compile>
     <Compile Include="LibraryForm.Designer.cs">
       <DependentUpon>LibraryForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoanForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoanForm.Designer.cs">
-      <DependentUpon>LoanForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MemberForm.cs">
       <SubType>Form</SubType>
@@ -101,14 +101,14 @@
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LoanService.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <EmbeddedResource Include="AuthorForm.resx">
+      <DependentUpon>AuthorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BookForm.resx">
       <DependentUpon>BookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LibraryForm.resx">
       <DependentUpon>LibraryForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoanForm.resx">
-      <DependentUpon>LoanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MemberForm.resx">
       <DependentUpon>MemberForm.cs</DependentUpon>

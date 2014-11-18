@@ -152,6 +152,7 @@
             this.btnNewAuthor.TabIndex = 12;
             this.btnNewAuthor.Text = "new";
             this.btnNewAuthor.UseVisualStyleBackColor = true;
+            this.btnNewAuthor.Click += new System.EventHandler(this.btnNewAuthor_Click);
             // 
             // BookForm
             // 

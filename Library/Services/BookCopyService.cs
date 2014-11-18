@@ -29,10 +29,19 @@ namespace Library.Services {
             return _bookCopyRepository.All();
         }
 
+        public IEnumerable<BookCopy> AllAvailableCopies() {
+            return _bookCopyRepository.All()
+                .Where(bc => bc.Available == true);
+        }
+
         public void AddBookCopy(BookCopy bookCopy) {
             myEventArgs = new EventArgs();
             _bookCopyRepository.Add(bookCopy);
             OnUpdated(myEventArgs);
+        }
+
+        public BookCopy GetBookCopy(int id) {
+            return _bookCopyRepository.Find(id);
         }
     }
 }
